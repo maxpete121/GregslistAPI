@@ -23,6 +23,17 @@ class HouseService{
         await houseToRemove.remove()
         return`House Removed.`
     }
+
+    async updateHouse(houseId, houseUpdate){
+        const originalHouse = await dbContext.Houses.findById(houseId)
+        originalHouse.bedroom = houseUpdate.bedroom ? houseUpdate.bedroom : originalHouse.bedroom
+        originalHouse.bathroom = houseUpdate.bathroom ? houseUpdate.bathroom : originalHouse.bathroom
+        originalHouse.price = houseUpdate.price ? houseUpdate.price : originalHouse.price
+        originalHouse.imgUrl = houseUpdate.imgUrl ? houseUpdate.imgUrl : originalHouse.imgUrl
+        originalHouse.description = houseUpdate.description ? houseUpdate.description : originalHouse.description
+        await originalHouse.save()
+        return originalHouse
+    }
 }
 
 
