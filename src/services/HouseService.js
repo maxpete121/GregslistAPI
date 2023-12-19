@@ -24,6 +24,14 @@ class HouseService{
         return`House Removed.`
     }
 
+    async findHouse(houseId){
+        const houseFound = await dbContext.Houses.findById(houseId)
+        if(!houseFound){
+            throw new Error('No house at that ID')
+        }
+        return houseFound
+    }
+
     async updateHouse(houseId, houseUpdate){
         const originalHouse = await dbContext.Houses.findById(houseId)
         originalHouse.bedroom = houseUpdate.bedroom ? houseUpdate.bedroom : originalHouse.bedroom
