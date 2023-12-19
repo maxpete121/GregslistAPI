@@ -10,6 +10,7 @@ export class JobsController extends BaseController{
         this.router
         .get('', this.getJobs)
         .get('/find/:jobId', this.findJob)
+        .put('/:jobId', this.updateJob)
         .post('', this.postJob)
         .delete('/:jobId', this.deleteJob)
     }
@@ -51,6 +52,17 @@ export class JobsController extends BaseController{
             response.send(deleteJob)
         } catch (error) {
             next(error)
+        }
+    }
+
+    async updateJob(request, response, next){
+        try {
+            const jobId = request.params.jobId
+            const jobUpdate = request.body
+            const updated = jobService.updateJob(jobId, jobUpdate)
+            response.send(updated)
+        } catch (error) {
+            
         }
     }
 }

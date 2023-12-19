@@ -29,6 +29,16 @@ class JobService{
         await foundJob.remove()
         return`Job listing removed`
     }
+
+    async updateJob(jobId, jobUpdate){
+        const originalJob = await dbContext.Jobs.findById(jobId)
+        originalJob.wage = jobUpdate.wage ? jobUpdate.wage : originalJob.wage
+        originalJob.hours = jobUpdate.hours ? jobUpdate.hours : originalJob.hours
+        originalJob.employer = jobUpdate.employer ? jobUpdate.employer : originalJob.employer
+        originalJob.description = jobUpdate.description ? jobUpdate.description : originalJob.description
+        await originalJob.save()
+        return originalJob
+    }
 }
 
 
